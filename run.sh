@@ -7,8 +7,8 @@
 export SAVE_PATH=/path/to/disk
 
 #### Model selection ####
-SMALL_MODEL_NAME="dpsk_prorl_v2_1.5b"
-# SMALL_MODEL_NAME="dpsk_distill_qwen3_8b"
+# SMALL_MODEL_NAME="dpsk_prorl_v2_1.5b"
+SMALL_MODEL_NAME="dpsk_distill_qwen3_8b"
 
 #### Task configuration ####
 # TASK="hadamard_matrix"
@@ -44,9 +44,8 @@ INITIAL_PROGRAM_POSTFIX=""
 NOTE=""
 
 #### Replace with your own wandb settings ####
-WANDB_API_KEY=aaa
-WANDB_ENTITY=bbb
-WANDB_PROJECT=ccc
+WANDB_ENTITY=${WANDB_ENTITY:-TTT-buffer}
+WANDB_PROJECT=${WANDB_PROJECT:-TTT-buffer}
 
 # ########################## END CONFIGURATION SECTION #############################
 
@@ -93,6 +92,11 @@ export TRITON_CACHE_DIR=$SAVE_PATH/triton
 # wandb
 export WANDB_CACHE_DIR=$SAVE_PATH/wandb
 export WANDB_DIR=$SAVE_PATH/wandb
+if [ -z "${WANDB_API_KEY:-}" ]; then
+    echo "ERROR: WANDB_API_KEY is not set"
+    echo "Set it in your environment or load it from .env before running this script."
+    exit 1
+fi
 export WANDB_API_KEY=$WANDB_API_KEY
 export WANDB_ENTITY=$WANDB_ENTITY
 export WANDB_PROJECT=$WANDB_PROJECT
